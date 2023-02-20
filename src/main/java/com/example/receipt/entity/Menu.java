@@ -22,11 +22,13 @@ public class Menu {
     @Column(nullable = false)
     private int price;
 
+    //생성자
     public Menu(MenuRequestDto requestDto) {
         this.name = requestDto.getName();
         this.price = requestDto.getPrice();
     }
 
+    //메소드
     public void update(MenuRequestDto requestDto) {
         this.name = requestDto.getName();
         this.price = requestDto.getPrice();

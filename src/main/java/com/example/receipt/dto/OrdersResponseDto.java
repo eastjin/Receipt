@@ -13,10 +13,8 @@ public class OrdersResponseDto {
     private LocalDateTime orderTime;
     private String errorMessage;
 
-    public OrdersResponseDto(boolean isSuccess, String menu, LocalDateTime orderTime, String errorMessage) {
+    public OrdersResponseDto(boolean isSuccess, String errorMessage) {
         this.isSuccess = isSuccess;
-        this.menu = menu;
-        this.orderTime = orderTime;
         this.errorMessage = errorMessage;
     }
 }
