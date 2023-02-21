@@ -7,5 +7,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrdersRequestDto {
     private Long menuId;
-    private int price;
+    private String comment;
 }

@@ -11,33 +11,34 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class MenuService {
     private final MenuRepository menuRepository;
 
-    public ResponseEntity<?> createMenu(MenuRequestDto requestDto){
+    public ResponseEntity<?> createMenu(MenuRequestDto requestDto) {
         Menu menu = new Menu(requestDto);
         menuRepository.save(menu);
-        // 결제 금액 확인
-        if (menu.getName().equals("chicken")) {
-            if(menu.getPrice()!=20000){
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(new ErrorResponseDto(false, "틀린 가격이 접수되었습니다."));
-            }
+
+        // 메뉴와 해당 메뉴에 대한 가격을 매핑한 Map을 만듭니다.
+        Map<String, Integer> menuPriceMap = new HashMap<>();
+        menuPriceMap.put("chicken", 20000);
+        menuPriceMap.put("pizza", 25000);
+
+        Integer expectedPrice = menuPriceMap.get(menu.getName());
+        if (expectedPrice != null && !expectedPrice.equals(menu.getPrice())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponseDto(false, "틀린 가격이 접수되었습니다."));
         }
-        if (menu.getName().equals("pizza")) {
-            if(menu.getPrice()!=25000){
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(new ErrorResponseDto(false, "틀린 가격이 접수되었습니다."));
-            }
-        }
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new MenuResponseDto(true, menu.getName()));
     }
+
 
     public List<Menu> getMenuAll(){
         return menuRepository.findAllByOrderByIdDesc();

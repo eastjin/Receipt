@@ -1,12 +1,9 @@
 package com.example.receipt.controller;
 
-import com.example.receipt.dto.ErrorResponseDto;
 import com.example.receipt.dto.MenuRequestDto;
-import com.example.receipt.dto.MenuResponseDto;
 import com.example.receipt.entity.Menu;
 import com.example.receipt.service.MenuService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
