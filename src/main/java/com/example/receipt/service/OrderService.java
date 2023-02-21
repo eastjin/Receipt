@@ -15,17 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderService {
     private final OrdersRepository ordersRepository;
     private final MenuRepository menuRepository;
-//
-//    @Transactional
-//    public Orders createOrder(OrdersRequestDto requestDto) {
-////        this.price = requestDto.getPrice();
-////        this.orderTime = LocalDateTime.now();
-//        Orders orders = new Orders(requestDto);
-//        Menu menu = menuRepository.findById(requestDto.getMenuId()).orElseThrow(IllegalArgumentException::new);
-//
-//        // price,orderTime+menu;
-//        orders.orderUpdate(menu);
-//        ordersRepository.save(orders);
-//        return orders;
-//    }
+
+    @Transactional
+    public Orders createOrder(OrdersRequestDto requestDto) {
+        Orders orders = new Orders(requestDto, menuRepository);
+        ordersRepository.save(orders);
+        return orders;
+
+    }
 }

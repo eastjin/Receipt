@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class OrdersRequestDto {
-    private Long menuId;
+    private Long menu_id;
     private String comment;
 }
